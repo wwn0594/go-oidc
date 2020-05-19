@@ -138,7 +138,9 @@ func NewProvider(ctx context.Context, issuer string) (*Provider, error) {
 	}
 
 	if p.Issuer != issuer {
-		return nil, fmt.Errorf("oidc: issuer did not match the issuer returned by provider, expected %q got %q", issuer, p.Issuer)
+		fmt.Printf("warning: issuer did not match the issuer returned by provider, expected %q got %q. Use local issuer(%q) directly.", issuer, p.Issuer, issuer)
+		p.Issuer = issuer
+		// return nil, fmt.Errorf("oidc: issuer did not match the issuer returned by provider, expected %q got %q", issuer, p.Issuer)
 	}
 	var algs []string
 	for _, a := range p.Algorithms {
